@@ -44,7 +44,7 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
 					},
 					text: {
 						primary: '#2B3674',
-						secondary: '#707EAE',
+						secondary: '#A3AED0',
 					},
 			  }
 			: {
@@ -60,7 +60,7 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
 					},
 					text: {
 						primary: '#fff',
-						secondary: '#59588d',
+						secondary: '#6F6C99',
 					},
 			  }),
 	},
