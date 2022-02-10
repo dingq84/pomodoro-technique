@@ -36,11 +36,18 @@ function App() {
 			<ThemeProvider theme={theme}>
 				<Box sx={{ display: 'flex', width: '100%', height: '100vh' }}>
 					<Sidebar />
-					<Box sx={{ flexGrow: 1, bgcolor: (theme) => theme.palette.primary.main }}>
-						Container
-						<button onClick={colorMode.toggleColorMode}>toggle </button>
-						<Link to="/">home</Link>
-						<Link to="/timer">timer</Link>
+					<Box
+						sx={{
+							flexGrow: 1,
+							bgcolor: (theme) => theme.palette.primary.main,
+							px: '50px',
+							py: '70px',
+						}}
+					>
+						{/* Container
+						<button onClick={colorMode.toggleColorMode}>toggle </button> */}
+						{/* <Link to="/">home</Link> */}
+						{/* <Link to="/timer">timer</Link> */}
 						{elements}
 					</Box>
 				</Box>

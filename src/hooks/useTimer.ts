@@ -17,6 +17,7 @@ function useTimer(props: TimerProps) {
 	// 在 closure 裡面無法取得最新的 state
 	const currentSecondsPointer = useRef<number>(totalSeconds)
 	const [currentSeconds, setCurrentSeconds] = useState(totalSeconds)
+	const [mode, setMode] = useState<'idle' | 'stop' | 'start'>('idle')
 
 	useEffect(() => {
 		return () => {
@@ -27,6 +28,7 @@ function useTimer(props: TimerProps) {
 	useEffect(() => {
 		stop()
 		setCurrentSeconds(totalSeconds)
+		setMode('idle')
 	}, [totalSeconds])
 
 	useEffect(() => {
@@ -34,6 +36,10 @@ function useTimer(props: TimerProps) {
 	}, [currentSeconds])
 
 	const start = (): void => {
+		if (mode !== 'start') {
+			setMode('start')
+		}
+
 		timer.current = window.setTimeout(() => {
 			if (startTime.current === 0) {
 				startTime.current = new Date().getTime()
@@ -55,12 +61,13 @@ function useTimer(props: TimerProps) {
 	}
 
 	const stop = (): void => {
+		setMode('stop')
 		clearTimeout(timer.current)
 		count.current = 0
 		startTime.current = 0
 	}
 
-	return { start, stop, currentSeconds }
+	return { start, stop, mode, currentSeconds }
 }
 
 export default useTimer
