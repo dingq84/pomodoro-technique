@@ -2,11 +2,12 @@ import { useState, useMemo, createContext, useLayoutEffect } from 'react'
 import { Box, PaletteMode } from '@mui/material'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { useRoutes, Link } from 'react-router-dom'
+import { useRoutes } from 'react-router-dom'
 
 import getDesignTokens from './theme'
 import Sidebar from './components/sidebar'
 import routes from './route'
+import NotificationProvider from './components/notification/Notification'
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
@@ -17,7 +18,7 @@ function App() {
 	const colorMode = useMemo(
 		() => ({
 			// The dark mode switch would invoke this method
-			toggleColorMode: () => {
+			toggleColorMode: (): void => {
 				setMode((prevMode: PaletteMode) => (prevMode === 'light' ? 'dark' : 'light'))
 			},
 		}),
@@ -34,23 +35,25 @@ function App() {
 	return (
 		<ColorModeContext.Provider value={colorMode}>
 			<ThemeProvider theme={theme}>
-				<Box sx={{ display: 'flex', width: '100%', height: '100vh' }}>
-					<Sidebar />
-					<Box
-						sx={{
-							flexGrow: 1,
-							bgcolor: (theme) => theme.palette.primary.main,
-							px: '50px',
-							py: '70px',
-						}}
-					>
-						{/* Container
+				<NotificationProvider>
+					<Box sx={{ display: 'flex', width: '100%', height: '100vh' }}>
+						<Sidebar />
+						<Box
+							sx={{
+								flexGrow: 1,
+								bgcolor: (theme) => theme.palette.primary.main,
+								px: '50px',
+								py: '70px',
+							}}
+						>
+							{/* Container
 						<button onClick={colorMode.toggleColorMode}>toggle </button> */}
-						{/* <Link to="/">home</Link> */}
-						{/* <Link to="/timer">timer</Link> */}
-						{elements}
+							{/* <Link to="/">home</Link> */}
+							{/* <Link to="/timer">timer</Link> */}
+							{elements}
+						</Box>
 					</Box>
-				</Box>
+				</NotificationProvider>
 			</ThemeProvider>
 		</ColorModeContext.Provider>
 	)
